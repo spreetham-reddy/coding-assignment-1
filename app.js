@@ -7,10 +7,10 @@ const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 const path = require("path");
 const dbPath = path.join(__dirname, "todoApplication.db");
-let database = null;
+let db = null;
 const initializeDBandServer = async () => {
   try {
-    database = await open({
+    db = await open({
       filename: dbPath,
       driver: sqlite3.Database,
     });
@@ -167,7 +167,7 @@ app.post("/todos/", async (request, response) => {
     todo (id, todo, priority, status,category,due_date)
   VALUES
     (${id}, '${todo}', '${priority}', '${status}','${category}','${dueDate}');`;
-  await database.run(postTodoQuery);
+  await db.run(postTodoQuery);
   response.send("Todo Successfully Added");
 });
 
@@ -221,7 +221,7 @@ app.put("/todos/:todoId/", async (request, response) => {
     WHERE
       id = ${todoId};`;
 
-  await database.run(updateTodoQuery);
+  await db.run(updateTodoQuery);
   response.send(`${updateColumn} Updated`);
 });
 
@@ -233,7 +233,7 @@ app.delete("/todos/:todoId/", async (request, response) => {
   WHERE
     id = ${todoId};`;
 
-  await database.run(deleteTodoQuery);
+  await db.run(deleteTodoQuery);
   response.send("Todo Deleted");
 });
 
