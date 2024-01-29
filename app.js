@@ -68,6 +68,7 @@ app.get("/todos/", async (request, response) => {
   let getTodosQuery = "";
   const { search_q = "", priority, status, category } = request.query;
   let c = 0;
+  let d = 0;
 
   if (status === undefined) {
     c = c + 1;
@@ -77,6 +78,7 @@ app.get("/todos/", async (request, response) => {
     status !== "IN PROGRESS" &&
     status !== "DONE"
   ) {
+    d = d + 1;
     response.status(400);
     response.send("Invalid Todo Status");
   } else {
@@ -91,6 +93,7 @@ app.get("/todos/", async (request, response) => {
     priority !== "MEDIUM" &&
     priority !== "LOW"
   ) {
+    d = d + 1;
     response.status(400);
     response.send("Invalid Todo Priority");
   } else {
@@ -105,6 +108,7 @@ app.get("/todos/", async (request, response) => {
     category !== "HOME" &&
     category !== "LEARNING"
   ) {
+    d = d + 1;
     response.status(400);
     response.send("Invalid Todo Category");
   } else {
