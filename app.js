@@ -67,6 +67,49 @@ app.get("/todos/", async (request, response) => {
   let data = null;
   let getTodosQuery = "";
   const { search_q = "", priority, status, category } = request.query;
+  let c = 0;
+
+  if (status === undefined) {
+    c = c + 1;
+  } else if (
+    status !== undefined &&
+    status !== "TO DO" &&
+    status !== "IN PROGRESS" &&
+    status !== "DONE"
+  ) {
+    response.status(400);
+    response.send("Invalid Todo Status");
+  } else {
+    c = c + 1;
+  }
+
+  if (priority === undefined) {
+    c = c + 1;
+  } else if (
+    priority !== undefined &&
+    priority !== "HIGH" &&
+    priority !== "MEDIUM" &&
+    priority !== "LOW"
+  ) {
+    response.status(400);
+    response.send("Invalid Todo Priority");
+  } else {
+    c = c + 1;
+  }
+
+  if (category === undefined) {
+    c = c + 1;
+  } else if (
+    category !== undefined &&
+    category !== "WORK" &&
+    category !== "HOME" &&
+    category !== "LEARNING"
+  ) {
+    response.status(400);
+    response.send("Invalid Todo Category");
+  } else {
+    c = c + 1;
+  }
 
   switch (true) {
     case hasPriorityAndStatusProperties(request.query):
